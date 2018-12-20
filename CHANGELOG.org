@@ -10,11 +10,11 @@ All notable changes to this project will be documented in this file. This change
 
 ** Changed
 
-**** added riemann docker file
+   - added riemann docker file
 
-**** added riemann-dash docker file 
+   - added riemann-dash docker file 
 
-**** added the configd for riemann and riemann-dash in configs dir and created a symlink
+   - added the configd for riemann and riemann-dash in configs dir and created a symlink
 
 
 ** Removed
