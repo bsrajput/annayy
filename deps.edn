@@ -1,0 +1,29 @@
+{:deps
+{clj-time {:mvn/version "0.14.2"},
+  zookeeper-clj {:mvn/version "0.9.4"},
+  cheshire {:mvn/version "5.8.0"},
+  clj-http {:mvn/version "3.9.1"},
+  ring     {:mvn/version "1.7.0"},
+  ring/ring-core {:mvn/version "1.7.0"},
+  ring/ring-defaults {:mvn/version "0.3.2"}
+  compojure {:mvn/version "1.6.1"},
+  hiccup    {:mvn/version "1.0.5"},
+  com.google.guava/guava {:mvn/version "22.0"},
+  org.clojure/clojure {:mvn/version "1.9.0"},
+  org.clojure/tools.cli {:mvn/version "0.4.1"},
+  org.clojure/tools.reader {:mvn/version "1.3.0"},
+  org.slf4j/slf4j-simple {:mvn/version "1.6.1"},
+  org.clojure/java.jdbc  {:mvn/version "0.7.8"},
+  org.postgresql/postgresql {:mvn/version "42.2.5"},
+  ring/ring-anti-forgery {:mvn/version "1.3.0"},
+  buddy/buddy-auth {:mvn/version "2.1.0"},
+  lib-noir {:mvn/version "0.9.9"},
+  migratus-lein {:mvn/version "0.6.1"}
+  },
+:paths ["src"]
+:aliases
+{:bench {:extra-deps {kerodon {:mvn/version "0.8.0"},
+                       javax.servlet/servlet-api {:mvn/version "2.5"},
+                       ring/ring-mock {:mvn/version "0.3.2"}}}}}
+
+
