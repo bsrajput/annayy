@@ -1,0 +1,216 @@
+{
+  "server": "127.0.0.1:5556",
+  "server_type": "ws",
+  "workspaces": [
+    {
+      "name": "MySystem",
+      "view": {
+        "type": "Balloon",
+        "weight": 1,
+        "id": "a18e040e0ec433c4e504bce7b42c405254b39b71",
+        "version": 22,
+        "child": {
+          "type": "VStack",
+          "weight": 1,
+          "id": "a93bc6050fc0a5fd733870c72f936996c739257c",
+          "version": 22,
+          "children": [
+            {
+              "type": "HStack",
+              "weight": 1,
+              "id": "9ee721036ec8f0d54ffeab082f7a748fab1ea1d3",
+              "version": 19,
+              "children": [
+                {
+                  "type": "VStack",
+                  "weight": 1,
+                  "id": "56d8ad74bf5452bd09ca5caf1f6ffb0d33f4c1fd",
+                  "version": 0,
+                  "children": [
+                    {
+                      "type": "Grid",
+                      "weight": 1,
+                      "id": "084fab6ecbc36387627e99783a1696f796e449d6",
+                      "version": 1,
+                      "title": "Riemann",
+                      "query": "service =~ \"cpu\"",
+                      "max": "",
+                      "rows": "service",
+                      "cols": "host",
+                      "row_sort": "lexical",
+                      "col_sort": "lexical",
+                      "description": ""
+                    },
+                    {
+                      "type": "View",
+                      "weight": 1,
+                      "id": "09a50827cebd690f2e01178220cc0e9eb1b114f5",
+                      "version": 0
+                    },
+                    {
+                      "type": "View",
+                      "weight": 1,
+                      "id": "c6800b796a18b0089c67daa6285dc211b64988fa",
+                      "version": 0
+                    }
+                  ]
+                },
+                {
+                  "type": "Grid",
+                  "weight": 1,
+                  "id": "8dad3e6c1e77eec5d8bf5c402e4f62c1da1900f2",
+                  "version": 15,
+                  "title": "Memory",
+                  "query": "service =~ \"memory\"",
+                  "max": "",
+                  "rows": "service",
+                  "cols": "host",
+                  "row_sort": "lexical",
+                  "col_sort": "lexical",
+                  "description": ""
+                },
+                {
+                  "type": "Grid",
+                  "weight": 1,
+                  "id": "b9bd226a482b82e8abfa46fd008b48fa9afb4e7f",
+                  "version": 6,
+                  "title": "Disk",
+                  "query": "service ~= \"disk\"",
+                  "max": "",
+                  "rows": "service",
+                  "cols": "host",
+                  "row_sort": "lexical",
+                  "col_sort": "lexical",
+                  "description": ""
+                },
+                {
+                  "type": "View",
+                  "weight": 1,
+                  "id": "6abf625c2208472087a531b767ff22c512a9cd4c",
+                  "version": 0
+                },
+                {
+                  "type": "View",
+                  "weight": 1,
+                  "id": "3f6bd2b3afe1a8bb4ada83fdc7a3747c925a869e",
+                  "version": 0
+                },
+                {
+                  "type": "View",
+                  "weight": 1,
+                  "id": "83d14539c09e273a961c61612816242fc843c4e4",
+                  "version": 0
+                }
+              ]
+            },
+            {
+              "type": "Help"
+            }
+          ]
+        }
+      },
+      "id": "47204362c9f0557d525b887745c5946d0d1bb2e6"
+    },
+    {
+      "name": "Riemann",
+      "view": {
+        "type": "Balloon",
+        "weight": 1,
+        "id": "a18e040e0ec433c4e504bce7b42c405254b39b71",
+        "version": 2,
+        "child": {
+          "type": "VStack",
+          "weight": 1,
+          "id": "a93bc6050fc0a5fd733870c72f936996c739257c",
+          "version": 2,
+          "children": [
+            {
+              "type": "HStack",
+              "weight": 1,
+              "id": "9ee721036ec8f0d54ffeab082f7a748fab1ea1d3",
+              "version": 1,
+              "children": [
+                {
+                  "type": "VStack",
+                  "weight": 1,
+                  "id": "56d8ad74bf5452bd09ca5caf1f6ffb0d33f4c1fd",
+                  "version": 0,
+                  "children": [
+                    {
+                      "type": "Grid",
+                      "weight": 1,
+                      "id": "084fab6ecbc36387627e99783a1696f796e449d6",
+                      "version": 1,
+                      "title": "Riemann",
+                      "query": "service =~ \"cpu\"",
+                      "max": "",
+                      "rows": "service",
+                      "cols": "host",
+                      "row_sort": "lexical",
+                      "col_sort": "lexical",
+                      "description": ""
+                    },
+                    {
+                      "type": "View",
+                      "weight": 1,
+                      "id": "09a50827cebd690f2e01178220cc0e9eb1b114f5",
+                      "version": 0
+                    },
+                    {
+                      "type": "View",
+                      "weight": 1,
+                      "id": "c6800b796a18b0089c67daa6285dc211b64988fa",
+                      "version": 0
+                    }
+                  ]
+                },
+                {
+                  "type": "Grid",
+                  "weight": 1,
+                  "id": "8dad3e6c1e77eec5d8bf5c402e4f62c1da1900f2",
+                  "version": 1,
+                  "title": "Memory",
+                  "query": "service =~ \"memory\"",
+                  "max": "",
+                  "rows": "service",
+                  "cols": "host",
+                  "row_sort": "lexical",
+                  "col_sort": "lexical",
+                  "description": ""
+                },
+                {
+                  "type": "View",
+                  "weight": 1,
+                  "id": "b9bd226a482b82e8abfa46fd008b48fa9afb4e7f",
+                  "version": 0
+                },
+                {
+                  "type": "View",
+                  "weight": 1,
+                  "id": "6abf625c2208472087a531b767ff22c512a9cd4c",
+                  "version": 0
+                },
+                {
+                  "type": "View",
+                  "weight": 1,
+                  "id": "3f6bd2b3afe1a8bb4ada83fdc7a3747c925a869e",
+                  "version": 0
+                },
+                {
+                  "type": "View",
+                  "weight": 1,
+                  "id": "83d14539c09e273a961c61612816242fc843c4e4",
+                  "version": 0
+                }
+              ]
+            },
+            {
+              "type": "Help"
+            }
+          ]
+        }
+      },
+      "id": "c76620cfe135d18446b66bfb9ca8e0382371be1b"
+    }
+  ]
+}
