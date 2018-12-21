@@ -1,6 +1,6 @@
 FROM clojure:openjdk-11-tools-deps
 
-MAINTAINER Abhishek Amralkar
+MAINTAINER Abhishek Amralkar <abhishekamralkar@pm.me>
 
 ENV RIEMANN_VERSION 0.3.1
 

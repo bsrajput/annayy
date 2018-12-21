@@ -1,6 +1,6 @@
 FROM ruby:2.5-slim
 
-MAINTAINER Abhishek Amralkar
+MAINTAINER Abhishek Amralkar <abhishekamralkar@pm.me>
 
 RUN apt-get update && \
     apt-get -y dist-upgrade && \
@@ -16,7 +16,7 @@ RUN apt-get update && \
 RUN mkdir /riemann-dash
 
 WORKDIR /riemann-dash
-COPY config.rb /riemann-dash/
+#COPY config.rb /riemann-dash/
 
 EXPOSE 4567
 
