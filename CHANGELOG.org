@@ -18,3 +18,22 @@ All notable changes to this project will be documented in this file. This change
 
 
 ** Removed
+
+* [0.1.2] - 2018-12-22
+
+** Changed
+
+   - added influxdb docker file
+
+   - added grafana docker file 
+
+   - added docker compose file to boot the whole stack
+       1. riemann
+       2. riemann-dash
+       3. grafana
+       4. influxdb
+       
+
+
+** Removed
+

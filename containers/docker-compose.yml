@@ -1,0 +1,41 @@
+version: '2'
+
+services:
+  riemann:
+    build: ./riemann
+    ports:
+      - "5555:5555"
+      - "5555:5555/udp"
+      - "5556:5556"
+    command: -a start
+    links:
+      - influxdb
+    depends_on:
+      - influxdb
+
+  riemann-dash:
+    build: ./riemann-dash
+    ports:
+      - "4567:4567"
+    links:
+      - riemann
+    depends_on:
+      - riemann
+
+  influxdb:
+    build: ./influxdb
+    ports:
+      - "8086:8086"
+    volumes:
+      - /home/aaa/databases/influxdb_docker:/var/lib/influxdb
+
+  grafana:
+    image: "grafana:latest"
+    ports:
+      - "3000:3000"
+    volumes:
+      - /home/aaa/databases/grafana_docker:/var/lib/grafana
+    links:
+      - influxdb
+    depends_on:
+      - influxdb

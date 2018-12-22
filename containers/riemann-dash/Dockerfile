@@ -16,7 +16,7 @@ RUN apt-get update && \
 RUN mkdir /riemann-dash
 
 WORKDIR /riemann-dash
-#COPY config.rb /riemann-dash/
+COPY config.rb /riemann-dash/
 
 EXPOSE 4567
 
