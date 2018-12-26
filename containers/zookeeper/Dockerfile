@@ -1,36 +1,59 @@
-FROM debian:latest
-Maintainer Abhishek Anand Amralkar<abhishekamralkar@pm.me>
+FROM openjdk:8-jre-alpine
 
+# Install required packages
+RUN apk add --no-cache \
+    bash \
+    su-exec
 
+ENV ZOO_USER=zookeeper \
+    ZOO_CONF_DIR=/conf \
+    ZOO_DATA_DIR=/data \
+    ZOO_DATA_LOG_DIR=/datalog \
+    ZOO_LOG_DIR=/logs \
+    ZOO_PORT=2181 \
+    ZOO_TICK_TIME=2000 \
+    ZOO_INIT_LIMIT=5 \
+    ZOO_SYNC_LIMIT=2 \
+    ZOO_AUTOPURGE_PURGEINTERVAL=0 \
+    ZOO_AUTOPURGE_SNAPRETAINCOUNT=3 \
+    ZOO_MAX_CLIENT_CNXNS=60
 
-#assign the $ZOOKEEPER_VERSION arg to the ZOOKEEPER_VERSION ENV so that it can be accessed
-#by the subsequent RUN call within the container
-ENV ZOOKEEPER_VERSION $ZOOKEEPER_VERSION
+# Add a user and make dirs
+RUN set -ex; \
+    adduser -D "$ZOO_USER"; \
+    mkdir -p "$ZOO_DATA_LOG_DIR" "$ZOO_DATA_DIR" "$ZOO_CONF_DIR" "$ZOO_LOG_DIR"; \
+    chown "$ZOO_USER:$ZOO_USER" "$ZOO_DATA_LOG_DIR" "$ZOO_DATA_DIR" "$ZOO_CONF_DIR" "$ZOO_LOG_DIR"
 
+ARG GPG_KEY=C61B346552DC5E0CB53AA84F59147497767E7473
+ARG DISTRO_NAME=zookeeper-3.4.13
 
-RUN apt-get upgrade && apt-get upgrade
+# Download Apache Zookeeper, verify its PGP signature, untar and clean up
+RUN set -ex; \
+    apk add --no-cache --virtual .build-deps \
+        ca-certificates \
+        gnupg \
+        libressl; \
+    wget -q "https://www.apache.org/dist/zookeeper/$DISTRO_NAME/$DISTRO_NAME.tar.gz"; \
+    wget -q "https://www.apache.org/dist/zookeeper/$DISTRO_NAME/$DISTRO_NAME.tar.gz.asc"; \
+    export GNUPGHOME="$(mktemp -d)"; \
+    gpg --keyserver ha.pool.sks-keyservers.net --recv-key "$GPG_KEY" || \
+    gpg --keyserver pgp.mit.edu --recv-keys "$GPG_KEY" || \
+    gpg --keyserver keyserver.pgp.com --recv-keys "$GPG_KEY"; \
+    gpg --batch --verify "$DISTRO_NAME.tar.gz.asc" "$DISTRO_NAME.tar.gz"; \
+    tar -xzf "$DISTRO_NAME.tar.gz"; \
+    mv "$DISTRO_NAME/conf/"* "$ZOO_CONF_DIR"; \
+    rm -rf "$GNUPGHOME" "$DISTRO_NAME.tar.gz" "$DISTRO_NAME.tar.gz.asc"; \
+    apk del .build-deps
 
-# Install Java.
+WORKDIR $DISTRO_NAME
+VOLUME ["$ZOO_DATA_DIR", "$ZOO_DATA_LOG_DIR", "$ZOO_LOG_DIR"]
 
-RUN \
-  apt-get update && \
-  apt-get install -y openjdk-8-jdk wget && \
-  rm -rf /var/lib/apt/lists/*
+EXPOSE $ZOO_PORT 2888 3888
 
-# Define commonly used JAVA_HOME variable
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
-
-# Install Zookeeper
-RUN wget -q -O - http://mirror.csclub.uwaterloo.ca/apache/zookeeper/zookeeper-3.4.13/zookeeper-3.4.13.tar.gz | tar -xzf - -C /opt \
-    && mv /opt/zookeeper-3.4.13 /opt/zookeeper \
-    && cp /opt/zookeeper/conf/zoo_sample.cfg /opt/zookeeper/conf/zoo.cfg
-
-EXPOSE 2181 2888 3888
-
-WORKDIR /opt/zookeeper
-
-VOLUME ["/opt/zookeeper/conf", "tmp/zookeeper"]
-
-ENTRYPOINT ["/opt/zookeeper/bin/zkServer.sh"]
-
-CMD ["start-foreground"]
+ENV PATH=$PATH:/$DISTRO_NAME/bin \
+    ZOOCFGDIR=$ZOO_CONF_DIR
+RUN apk add ruby ruby-dev make gcc g++ alpine-sdk
+RUN gem install riemann-tools --no-ri --no-rdoc
+COPY docker-entrypoint.sh /
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["zkServer.sh", "start-foreground"]

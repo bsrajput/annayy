@@ -12,13 +12,8 @@ RUN apt-get update && \
     apt-get -y autoremove && \
     apt-get clean
 
-
-RUN mkdir /riemann-dash
-
-WORKDIR /riemann-dash
-COPY config.rb /riemann-dash/
-
 EXPOSE 4567
 
-CMD ["riemann-dash"]
-
+#RUN mkdir /etc/riemann /custom
+#ADD ./config.rb /etc/riemann/riemann-dash-config.rb
+CMD ["riemann-dash", "/etc/riemann/config.rb"]

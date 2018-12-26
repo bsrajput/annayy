@@ -21,6 +21,8 @@ services:
       - riemann
     depends_on:
       - riemann
+    volumes:
+      - /home/aaa/code/annayy/containers/riemann-dash:/etc/riemann
 
   influxdb:
     build: ./influxdb
@@ -39,3 +41,54 @@ services:
       - influxdb
     depends_on:
       - influxdb
+
+  zoo1:
+        build: ./zookeeper
+        restart: always
+        hostname: zoo1
+        ports:
+            - 2181:2181
+        environment:
+            ZOO_MY_ID: 1
+            ZOO_SERVERS: server.1=0.0.0.0:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
+        volumes:
+          - /home/aaa/databases/zookeeper_docker1:/data
+          - /home/aaa/logs/zookeeper_docker1:/logs
+        links:
+          - riemann
+        depends_on:
+          - riemann
+
+  zoo2:
+        build: ./zookeeper
+        restart: always
+        hostname: zoo2
+        ports:
+            - 2182:2181
+        environment:
+            ZOO_MY_ID: 2
+            ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=0.0.0.0:2888:3888 server.3=zoo3:2888:3888
+        volumes:
+          - /home/aaa/databases/zookeeper_docker2:/data
+          - /home/aaa/logs/zookeeper_docker2:/logs
+        links:
+          - riemann
+        depends_on:
+          - riemann
+
+  zoo3:
+        build: ./zookeeper
+        restart: always
+        hostname: zoo3
+        ports:
+            - 2183:2181
+        environment:
+            ZOO_MY_ID: 3
+            ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=0.0.0.0:2888:3888
+        volumes:
+          - /home/aaa/databases/zookeeper_docker3:/data
+          - /home/aaa/logs/zookeeper_docker3:/logs
+        links:
+          - riemann
+        depends_on:
+          - riemann
